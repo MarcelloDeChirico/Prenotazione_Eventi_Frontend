@@ -1,0 +1,29 @@
+<div style="display:flex; justify-content:center;">
+<form style="margin-top:20px; width:30%;" [formGroup]="dati" (ngSubmit)="invio()">
+    <h3 style="text-align: center;">Login</h3>
+
+    <span class="badge badge-danger " style="background-color: red;" *ngIf="this.errore">Email e/o Password sbagliati</span>
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+        <label class="form-label" for="form2Example1">Email address</label>
+        <input type="email" id="form2Example1" class="form-control" formControlName="email"/>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+        <label class="form-label" for="form2Example2">Password</label>
+        <input type="password" id="form2Example2" class="form-control" formControlName="password" />
+
+    </div>
+
+
+    <div id="signIn">
+    <!-- Submit button -->
+    <button type="submit" [disabled]="dati.invalid" class=" col-3 button-12" >Sign in</button>
+    </div>
+    <!-- Register buttons -->
+    <div class="text-center ">
+        <p>Not a member? <a routerLink="/registrazione" id="register">Register</a></p>
+    </div>
+</form>
+</div>

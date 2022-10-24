@@ -1,0 +1,331 @@
+<ng-template #popOK let-modal>
+  <div id="modalOK" class="modal-header " >
+    <h4 class="modal-title" id="modal-basic-title">Prenotazione avvenuta con successo</h4>
+  </div>
+  <div class="modal-body">
+    <span>Ora puoi tornare alla Home o visualizzare il tuo Profilo</span>
+  </div>
+  <div class="modal-footer" id="btnModal">
+    <button class="btn btn-dark" routerLink="/home" (click)="modal.dismiss()">Torna alla HOME</button>
+    <button class="btn btn-dark" routerLink="/profilo" (click)="modal.dismiss()" >Vai al tuo Profilo</button>
+  </div>
+</ng-template>
+
+<ng-template #popNO let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">OPS, Qualcosa è andato storto</h4>
+  </div>
+  <div class="modal-body">
+    <span>Torna alla HOME</span>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-dark" routerLink="/home" (click)="modal.dismiss()">Torna alla HOME</button>
+  </div>
+</ng-template>
+
+
+
+<div
+  *ngIf="this.settoreDataEvento != undefined"
+  class="card-group evet-card text-light mb-2 mt-5"
+>
+  <div class="card mb-0">
+    <div class="card-body py-1">
+      <div class="row">
+        <div class="col-5 col-sm-3">
+          <div class="display-4">
+            <span class="badge">{{
+              this.settoreDataEvento.getDataEvento().getDayInizio()
+            }}</span>
+          </div>
+          <div class="display-4">
+            {{ this.settoreDataEvento.getDataEvento().getMonthInizioText() }}
+          </div>
+        </div>
+        <div class="col-7 col-sm-9">
+          <div class="d-flex flex-column">
+            <h3 class="card-title text-uppercase mt-0">
+              <strong>{{
+                this.settoreDataEvento
+                  .getDataEvento()
+                  .getEvento()
+                  .getNomeEvento()
+              }}</strong>
+            </h3>
+            <div class="card-text">
+              {{
+                this.settoreDataEvento
+                  .getDataEvento()
+                  .getEvento()
+                  .getDescrizioneEvento()
+              }}
+            </div>
+
+            <ul class="list-inline mt-auto" style="margin-bottom: 0px">
+              <li class="list-inline-item"><strong>Categoria:</strong></li>
+              <li class="list-inline-item">
+                <i class="fa fa-list-alt" aria-hidden="true"></i>
+                {{
+                  this.settoreDataEvento
+                    .getDataEvento()
+                    .getEvento()
+                    .getCategoriaEvento()
+                }}
+              </li>
+            </ul>
+            <ul class="list-inline mt-auto">
+              <li class="list-inline-item"><strong>Autore:</strong></li>
+              <li class="list-inline-item">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                {{
+                  this.settoreDataEvento
+                    .getDataEvento()
+                    .getEvento()
+                    .getAutoreEvento()
+                }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-0">
+    <div class="card-body py-1">
+      <div class="row h-100">
+        <div class="col-6 col-sm-5">
+          <ul class="list-group my-0 pl-1">
+            <li class="list-inline-item">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              {{ this.settoreDataEvento.getDataEvento().getOraInizio() }}:{{
+                this.settoreDataEvento.getDataEvento().getMinutiInizio()
+              }}-{{ this.settoreDataEvento.getDataEvento().getOraFine() }}:{{
+                this.settoreDataEvento.getDataEvento().getMinutiFine()
+              }}
+            </li>
+            <li class="list-inline-item">
+              <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+              {{ this.settoreDataEvento.getDataEvento().getDayText() }}
+            </li>
+            <li class="list-inline-item">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              {{
+                this.settoreDataEvento.getSettore().getLuogo().getNomeLuogo()
+              }}
+            </li>
+            <li class="list-inline-item">
+              <i class="fa fa-compass" aria-hidden="true"></i>
+              {{ this.settoreDataEvento.getSettore().getNomeSettore() }}
+            </li>
+            <li class="list-inline-item">
+              <i class="fa fa-map" aria-hidden="true"></i>
+              {{
+                this.settoreDataEvento.getSettore().getLuogo().getUbicazione()
+              }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-sm-7 bg-white text-dark">
+          <ul class="list-group my-0 pl-1">
+            <li
+              class="list-inline-item"
+              style="font-size: 25px; margin: 0 auto"
+            >
+              <!--<i class="fa fa-money" aria-hidden="true" ></i>-->
+              {{
+                this.settoreDataEvento.getPrezzoBiglietto() | currency: "EUR"
+              }}
+            </li>
+
+            <span class="badge badge-danger" style="margin-top: 5px"
+              >posti disponibili:
+              {{ this.settoreDataEvento.getPostiDisponibili() }}</span
+            >
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="margin-top:20px;text-align: center; margin-bottom:50px;">
+  <span class="heading">User Rating</span>
+
+  <span class="fa fa-star checked"  *ngIf="this.recensione?.getMedia().toString()!='NaN'" ></span>
+
+  <span class="fa fa-star checked" *ngIf="this.recensione?.getMedia()>=2"></span>
+  <span class="fa fa-star " *ngIf="this.recensione?.getMedia()<2"></span>
+
+  
+
+  <span class="fa fa-star checked" *ngIf="this.recensione?.getMedia()>=3"></span>
+  <span class="fa fa-star " *ngIf="this.recensione?.getMedia()<3"></span>
+
+  <span class="fa fa-star checked" *ngIf="this.recensione?.getMedia()>=4"></span>
+  <span class="fa fa-star " *ngIf="this.recensione?.getMedia()<4"></span>
+
+  <span class="fa fa-star checked" *ngIf="this.recensione?.getMedia()===5"></span>
+  <span class="fa fa-star" *ngIf="this.recensione?.getMedia()<5"></span>
+
+  <p *ngIf="this.recensione?.getMedia().toString()!='NaN'"> la media è: {{this.recensione?.getMedia()?.toFixed(1)}} su {{this.recensione?.getTot()}} recensioni</p>
+  <p *ngIf="this.recensione?.getMedia().toString()==='NaN'"> Non ci sono ancora recensioni</p>
+
+  
+    <div class="row">
+    <div class="side" >
+      <div>5 star</div>
+    </div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-5" [style.width.%]="recensione?.getPercCinque()"></div>
+      </div>
+    </div>
+    <div class="side right">
+      <div>{{this.recensione?.getVotoCinque()}}</div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="side">
+      <div>4 star</div>
+    </div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-4" [style.width.%]="recensione?.getPercQuattro()" ></div>
+      </div>
+    </div>
+
+    <div class="side right">
+      <div>{{this.recensione?.getVotoQuattro()}}</div>
+    </div>
+  </div>
+    <div class="row">
+    <div class="side">
+      <div>3 star</div>
+    </div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-3" [style.width.%]="recensione?.getPercTre()" ></div>
+      </div>
+    </div>
+  
+    <div class="side right">
+      <div>{{this.recensione?.getVotoTre()}}</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="side">
+      <div>2 star</div>
+    </div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-2" [style.width.%]="recensione?.getPercDue()" ></div>
+      </div>
+    </div>
+    <div class="side right">
+      <div>{{this.recensione?.getVotoDue()}}</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="side">
+      <div>1 star</div>
+    </div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-1" [style.width.%]="recensione?.getPercUno()" ></div>
+      </div>
+    </div>
+    <div class="side right">
+      <div>{{this.recensione?.getVotoUno()}}</div>
+    </div>
+  </div>
+
+
+
+
+<div style="font-size: 20px; margin-top:20px; margin-bottom: 20px; float:left; width:100%;">
+  <div class="row col-3">
+    <span class="badge badge-danger" style="margin-right:10px;" *ngIf="this.errore"
+      >Massimo posti disponibili raggiunti</span
+    >
+  </div>
+
+  
+  <span class="badge badge-dark" style="margin-right:10px;"
+    >Seleziona il numero di persone che vuoi invitare</span
+  >
+  <button (click)="diminuisci()">
+    <i class="fa fa-minus" aria-hidden="true"></i>
+  </button>
+  {{ countVal }}
+  <button (click)="aumenta()">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+  </button>
+</div>
+
+
+
+<form [formGroup]="dati" (ngSubmit)="invio(popOK,popNO)" >
+  <div *ngFor="let item of val; let i = index" class="row" style="display:flex; justify-content: center;">
+    <input
+      maxlength="16" 
+      [formControlName]="'codiFiscale' + item"
+      type="text"
+      class="form-control"
+      id="floatingInputValue{{ i }}"
+    />
+    <label for="floatingInputValue{{ i }}">Codice Fiscale</label>
+  </div>
+
+  <div class="row" style="display:flex; justify-content: center;">
+  <input
+    maxlength="45" 
+    formControlName="carta"
+    type="text"
+    class="form-control mb-2"
+    id="carta"
+    placeholder="Inserisci il n. della carta"
+  />
+</div>
+<div class="row" style="display:flex; justify-content: center;">
+  <input
+    maxlength="3"
+    formControlName="cvv"
+    type="text"
+    class="form-control mb-2"
+    id="carta"
+    placeholder="CVV"
+  />
+</div>
+  <div class="row" style="display:flex; justify-content: center;">
+  <input
+    maxlength="45"
+    formControlName="intestatario"
+    type="text"
+    class="form-control mb-2"
+    id="carta"
+    placeholder="Intestatario"
+  />
+</div>
+<div class="row" style="display:flex; justify-content: center;">
+  <input
+    formControlName="dataScadenza"
+    type="date"
+    class="form-control"
+    id="dataScadenza"
+    [min]="date"
+  />
+</div>
+
+  <label style="float:center; margin-top:5px; margin-left:1px; " for="dataScadenza">Data scadenza</label><br />
+  <div class="row" style=" margin-top:10px; margin-left:1px; display:flex; justify-content: center;">
+  <span
+    style="color: black; margin-right: 20px; height:35px; display:flex; justify-content: center; align-items: center; font-size : 13px;"
+    class="badge badge-pill badge-warning col-2 "
+    >Prezzo totale: {{ this.prezzo | currency: "EUR" }}</span
+  >
+  <input class="button-12 col-2" type="submit" value="Prenota" [disabled]="dati.invalid" />
+</div>
+</form>
+
+
